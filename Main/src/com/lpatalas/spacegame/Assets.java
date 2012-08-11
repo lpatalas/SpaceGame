@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
  * User: Lukasz
  * Date: 11.08.12
  */
-public class Assets {
+class Assets {
 	private static final String ASTEROID_TEXTURE_NAME = "images/asteroid.png";
 	private static final String GAME_OVER_TEXTURE_NAME = "images/gameOver.png";
 	private static final String PLAYER_TEXTURE_NAME = "images/ship.png";

@@ -11,11 +11,11 @@ import com.badlogic.gdx.math.Rectangle;
  * User: Lukasz
  * Date: 09.08.12
  */
-public class Asteroid {
-	private float movementSpeed;
+class Asteroid {
+	private final float movementSpeed;
 	private final float rotationSpeed;
 	private final Sprite sprite;
-	private float radius;
+	private final float radius;
 
 	public Asteroid(Texture texture) {
 		this.movementSpeed = MathUtils.random(50.0f, 250.0f);

@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
  * User: Lukasz
  * Date: 11.08.12
  */
-public class PlayerInputProcessor extends InputAdapter {
+class PlayerInputProcessor extends InputAdapter {
 	private final SpaceGame game;
 	private final Player player;
 
@@ -19,26 +19,29 @@ public class PlayerInputProcessor extends InputAdapter {
 
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button) {
-		if (!game.isGameOver())
-			return movePlayerToPosition(x, y);
+		if (game.isRunning()) {
+			movePlayerToPosition(x, y);
+		}
 		else {
 			game.resetGame();
-			return true;
 		}
+
+		return true;
 	}
 
 	@Override
 	public boolean touchDragged(int x, int y, int pointer) {
-		if (!game.isGameOver())
-			return movePlayerToPosition(x, y);
+		if (game.isRunning()) {
+			movePlayerToPosition(x, y);
+			return true;
+		}
 
-		return  super.touchDragged(x, y, pointer);
+		return super.touchDragged(x, y, pointer);
 	}
 
-	private boolean movePlayerToPosition(int x, int y) {
+	private void movePlayerToPosition(int x, int y) {
 		Vector2 position = transformPosition(x, y);
 		player.moveTo(position);
-		return true;
 	}
 
 	private static Vector2 transformPosition(float x, float y) {

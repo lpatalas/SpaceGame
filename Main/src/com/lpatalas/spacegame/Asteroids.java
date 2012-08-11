@@ -11,12 +11,12 @@ import java.util.List;
  * User: Lukasz
  * Date: 11.08.12
  */
-public class Asteroids {
+class Asteroids {
 	private static final int INITIAL_ASTEROID_COUNT = 5;
 	private static final float NEW_ASTEROID_INTERVAL = 5.0f;
 
-	private List<Asteroid> asteroids = new ArrayList<Asteroid>();
-	private Texture texture;
+	private final List<Asteroid> asteroids = new ArrayList<Asteroid>();
+	private final Texture texture;
 	private float timeToNextAsteroid = NEW_ASTEROID_INTERVAL;
 
 	public Asteroids(Texture texture) {

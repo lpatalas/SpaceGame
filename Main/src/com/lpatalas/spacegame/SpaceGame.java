@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * User: Lukasz
  * Date: 05.08.12
  */
-public class SpaceGame extends Game {
+class SpaceGame extends Game {
 	private static final float MOVE_SPEED = 300.0f;
 
 	private final Assets assets = new Assets();
@@ -20,8 +20,8 @@ public class SpaceGame extends Game {
 	private Player player;
 	private Stars stars;
 
-	public boolean isGameOver() {
-		return isGameOver;
+	public boolean isRunning() {
+		return !isGameOver;
 	}
 
 	@Override

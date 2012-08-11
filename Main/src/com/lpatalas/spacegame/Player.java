@@ -10,10 +10,10 @@ import com.badlogic.gdx.math.Vector2;
  * User: Lukasz
  * Date: 11.08.12
  */
-public class Player {
+class Player {
 	private final Sprite sprite;
 	private Vector2 targetPosition;
-	private Vector2 velocity = new Vector2(0, 0);
+	private final Vector2 velocity = new Vector2(0, 0);
 
 	public Player(Texture texture) {
 		this.sprite = new Sprite(texture);
