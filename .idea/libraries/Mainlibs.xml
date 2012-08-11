@@ -5,7 +5,10 @@
       <root url="file://$PROJECT_DIR$/Main/libs" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/Main/libs/sources" />
+    </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/Main/libs" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/Main/libs/sources" recursive="false" type="SOURCES" />
   </library>
 </component>
