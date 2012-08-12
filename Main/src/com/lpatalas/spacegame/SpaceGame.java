@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * User: Lukasz
@@ -45,13 +46,15 @@ class SpaceGame extends Game {
 
 	private void createPlayer() {
 		Texture playerTexture = assets.getPlayerTexture();
-		player = new Player(playerTexture);
+		Vector2 initialPos = new Vector2(playerTexture.getWidth(), Gdx.graphics.getHeight() / 2);
+		player = new Player(playerTexture, initialPos);
 		PlayerInputProcessor playerInputProcessor = new PlayerInputProcessor(this, player);
 		Gdx.input.setInputProcessor(playerInputProcessor);
 	}
 
 	public void resetGame() {
 		asteroids.reset();
+		player.reset();
 		stars.initialize();
 		isGameOver = false;
 	}

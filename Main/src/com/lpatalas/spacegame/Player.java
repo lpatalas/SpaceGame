@@ -11,13 +11,15 @@ import com.badlogic.gdx.math.Vector2;
  * Date: 11.08.12
  */
 class Player {
+	private final Vector2 initialPosition;
 	private final Vector2 position = new Vector2();
 	private Vector2 targetPosition;
 	private final Texture texture;
 	private final Vector2 velocity = new Vector2(0, 0);
 
-	public Player(Texture texture) {
+	public Player(Texture texture, Vector2 initialPosition) {
 		this.texture = texture;
+		this.initialPosition = initialPosition;
 	}
 
 	public Rectangle getBoundingRectangle() {
@@ -29,6 +31,12 @@ class Player {
 
 	public Vector2 getPosition() {
 		return position.cpy();
+	}
+
+	public void reset() {
+		position.set(initialPosition);
+		targetPosition = null;
+		velocity.set(0, 0);
 	}
 
 	public void moveTo(Vector2 position) {
