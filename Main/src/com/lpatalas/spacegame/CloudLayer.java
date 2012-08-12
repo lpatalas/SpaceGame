@@ -24,12 +24,11 @@ class CloudLayer {
 		return texture;
 	}
 
-	public float move(float deltaTime) {
+	public void move(float deltaTime) {
 		scroll -= deltaTime * scrollSpeed;
 		if (scroll < -1.0f) {
 			scroll += 1.0f;
 		}
-		return scroll;
 	}
 
 	public void render(SpriteBatch spriteBatch) {
