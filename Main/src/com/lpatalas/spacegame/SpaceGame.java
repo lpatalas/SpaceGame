@@ -118,8 +118,12 @@ class SpaceGame extends Game {
 
 	private void renderTimer(SpriteBatch spriteBatch) {
 		font.setColor(0.2f, 1, 0.2f, 1);
-		double timeInSeconds = Math.round((double)totalGameTime / 100.0) / 10.0;
+		double timeInSeconds = roundToSingleDecimalPlace(totalGameTime / 1000.0);
 		font.draw(spriteBatch, "TIME: " + timeInSeconds, 10, Gdx.graphics.getHeight() - 20);
+	}
+
+	private static double roundToSingleDecimalPlace(double value) {
+		return Math.round(value * 10.0) / 10.0;
 	}
 
 	private void renderGameOver(SpriteBatch spriteBatch) {
