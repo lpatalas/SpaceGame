@@ -3,6 +3,7 @@ package com.lpatalas.spacegame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.Random;
@@ -11,7 +12,6 @@ class Stars {
 	private static final int MAX_STARS = 20;
 	private static final int STAR_LENGTH = 10;
 
-	private final Random random = new Random();
 	private final Vector2[] stars = new Vector2[MAX_STARS];
 	private final Texture texture;
 
@@ -22,8 +22,8 @@ class Stars {
 	public void initialize() {
 
 		for (int i = 0; i < stars.length; i++) {
-			float x = random.nextFloat() * Gdx.graphics.getWidth();
-			float y = random.nextFloat() * Gdx.graphics.getHeight();
+			float x = MathUtils.random(Gdx.graphics.getWidth());
+			float y = MathUtils.random(Gdx.graphics.getHeight());
 
 			stars[i] = new Vector2(x, y);
 		}
@@ -45,7 +45,7 @@ class Stars {
 	}
 
 	private void resetStar(Vector2 star) {
-		star.x = Gdx.graphics.getWidth();
-		star.y = random.nextFloat() * Gdx.graphics.getHeight();
+		star.x = MathUtils.random(Gdx.graphics.getWidth(), Gdx.graphics.getWidth() * 2);
+		star.y = MathUtils.random(Gdx.graphics.getHeight());
 	}
 }
