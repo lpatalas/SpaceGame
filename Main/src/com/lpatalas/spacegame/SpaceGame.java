@@ -15,6 +15,7 @@ class SpaceGame extends Game {
 
 	private final Assets assets = new Assets();
 	private Asteroids asteroids;
+	private Clouds clouds;
 	private boolean isGameOver = false;
 	private final Particles particles = new Particles();
 	private Player player;
@@ -38,6 +39,7 @@ class SpaceGame extends Game {
 	private void createObjects() {
 		createPlayer();
 		asteroids = new Asteroids(assets.getAsteroidTexture());
+		clouds = new Clouds();
 		stars = new Stars(assets.getStarTexture());
 	}
 
@@ -73,6 +75,7 @@ class SpaceGame extends Game {
 		stars.update(deltaTime, MOVE_SPEED);
 		asteroids.update(deltaTime);
 		particles.update();
+		clouds.update(deltaTime);
 
 		if (!isGameOver && asteroids.collideWith(player.getBoundingRectangle())) {
 			isGameOver = true;
@@ -81,6 +84,7 @@ class SpaceGame extends Game {
 	}
 
 	private void renderObjects(float deltaTime) {
+		clouds.render(spriteBatch);
 		stars.render(spriteBatch);
 		asteroids.render(spriteBatch);
 
