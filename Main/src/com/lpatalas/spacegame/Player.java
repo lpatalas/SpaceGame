@@ -11,24 +11,32 @@ import com.badlogic.gdx.math.Vector2;
  * Date: 11.08.12
  */
 class Player {
-	private final Sprite sprite;
+	private final Vector2 position = new Vector2();
 	private Vector2 targetPosition;
+	private final Texture texture;
 	private final Vector2 velocity = new Vector2(0, 0);
 
 	public Player(Texture texture) {
-		this.sprite = new Sprite(texture);
+		this.texture = texture;
 	}
 
 	public Rectangle getBoundingRectangle() {
-		return sprite.getBoundingRectangle();
+		float width = texture.getWidth();
+		float height = texture.getHeight() / 2;
+
+		return new Rectangle(position.x - width / 2, position.y - height / 2, width, height);
+	}
+
+	public Vector2 getPosition() {
+		return position.cpy();
 	}
 
 	public void moveTo(Vector2 position) {
-		targetPosition = new Vector2(position.x - sprite.getWidth() / 2, position.y - sprite.getHeight() / 2);
+		targetPosition = position.cpy();
 	}
 
 	public void render(SpriteBatch spriteBatch) {
-		sprite.draw(spriteBatch);
+		spriteBatch.draw(texture, position.x - texture.getWidth() / 2, position.y - texture.getHeight() / 2);
 	}
 
 	public void update(float dt) {
@@ -48,14 +56,10 @@ class Player {
 		Vector2 acc = force.mul(dt * mass);
 		velocity.add(acc.mul(dt));
 
-		float x = sprite.getX() + velocity.x * dt;
-		float y = sprite.getY() + velocity.y * dt;
+		float x = position.x + velocity.x * dt;
+		float y = position.y + velocity.y * dt;
 
-		sprite.setPosition(x, y);
-	}
-
-	private Vector2 getPosition() {
-		return new Vector2(sprite.getX(), sprite.getY());
+		position.set(x, y);
 	}
 
 	private Vector2 getVectorToTarget() {

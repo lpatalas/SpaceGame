@@ -11,13 +11,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Date: 05.08.12
  */
 class SpaceGame extends Game {
-	private static final float MOVE_SPEED = 300.0f;
+	private static final float MOVE_SPEED = 1000.0f;
 
 	private final Assets assets = new Assets();
 	private Asteroids asteroids;
 	private boolean isGameOver = false;
-	private SpriteBatch spriteBatch;
+	private final Particles particles = new Particles();
 	private Player player;
+	private SpriteBatch spriteBatch;
 	private Stars stars;
 
 	public boolean isRunning() {
@@ -29,6 +30,7 @@ class SpaceGame extends Game {
 		spriteBatch = new SpriteBatch();
 
 		assets.load();
+		particles.load();
 		createObjects();
 		resetGame();
     }
@@ -57,11 +59,12 @@ class SpaceGame extends Game {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-		if (!isGameOver)
-			update(Gdx.graphics.getDeltaTime());
+		float deltaTime = Gdx.graphics.getDeltaTime();
+
+		update(deltaTime);
 
 		spriteBatch.begin();
-		renderObjects();
+		renderObjects(deltaTime);
 		spriteBatch.end();
     }
 
@@ -69,19 +72,26 @@ class SpaceGame extends Game {
 		player.update(deltaTime);
 		stars.update(deltaTime, MOVE_SPEED);
 		asteroids.update(deltaTime);
+		particles.update();
 
-		if (asteroids.collideWith(player.getBoundingRectangle())) {
+		if (!isGameOver && asteroids.collideWith(player.getBoundingRectangle())) {
 			isGameOver = true;
+			particles.addExplosion(player.getPosition());
 		}
 	}
 
-	private void renderObjects() {
+	private void renderObjects(float deltaTime) {
 		stars.render(spriteBatch);
 		asteroids.render(spriteBatch);
-		player.render(spriteBatch);
 
-		if (isGameOver)
+		if (!isGameOver)
+			player.render(spriteBatch);
+
+		particles.render(spriteBatch, deltaTime);
+
+		if (isGameOver) {
 			renderGameOver(spriteBatch);
+		}
 	}
 
 	private void renderGameOver(SpriteBatch spriteBatch) {
