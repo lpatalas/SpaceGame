@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.Random;
-
 class Stars {
 	private static final int MAX_STARS = 20;
 	private static final int STAR_LENGTH = 10;

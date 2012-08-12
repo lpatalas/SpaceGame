@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -17,11 +18,14 @@ class SpaceGame extends Game {
 	private final Assets assets = new Assets();
 	private Asteroids asteroids;
 	private Clouds clouds;
+	private BitmapFont font;
 	private boolean isGameOver = false;
 	private final Particles particles = new Particles();
 	private Player player;
 	private SpriteBatch spriteBatch;
 	private Stars stars;
+	private long startTime;
+	private long totalGameTime;
 
 	public boolean isRunning() {
 		return !isGameOver;
@@ -29,6 +33,7 @@ class SpaceGame extends Game {
 
 	@Override
     public void create() {
+		font = new BitmapFont(Gdx.files.internal("fonts/dodger.fnt"), false);
 		spriteBatch = new SpriteBatch();
 
 		assets.load();
@@ -57,6 +62,7 @@ class SpaceGame extends Game {
 		player.reset();
 		stars.initialize();
 		isGameOver = false;
+		startTime = System.currentTimeMillis();
 	}
 
 	@Override
@@ -70,10 +76,14 @@ class SpaceGame extends Game {
 
 		spriteBatch.begin();
 		renderObjects(deltaTime);
+		renderTimer(spriteBatch);
 		spriteBatch.end();
     }
 
 	private void update(float deltaTime) {
+		if (!isGameOver)
+			updateTimer();
+
 		player.update(deltaTime);
 		stars.update(deltaTime, MOVE_SPEED);
 		asteroids.update(deltaTime);
@@ -84,6 +94,11 @@ class SpaceGame extends Game {
 			isGameOver = true;
 			particles.addExplosion(player.getPosition());
 		}
+	}
+
+	private void updateTimer() {
+		long currentTime = System.currentTimeMillis();
+		totalGameTime = currentTime - startTime;
 	}
 
 	private void renderObjects(float deltaTime) {
@@ -99,6 +114,12 @@ class SpaceGame extends Game {
 		if (isGameOver) {
 			renderGameOver(spriteBatch);
 		}
+	}
+
+	private void renderTimer(SpriteBatch spriteBatch) {
+		font.setColor(0.2f, 1, 0.2f, 1);
+		double timeInSeconds = Math.round((double)totalGameTime / 100.0) / 10.0;
+		font.draw(spriteBatch, "TIME: " + timeInSeconds, 10, Gdx.graphics.getHeight() - 20);
 	}
 
 	private void renderGameOver(SpriteBatch spriteBatch) {
