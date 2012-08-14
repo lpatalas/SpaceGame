@@ -9,10 +9,10 @@ import com.badlogic.gdx.math.Vector2;
  * Date: 11.08.12
  */
 class PlayerInputProcessor extends InputAdapter {
-	private final SpaceGame game;
+	private final GameplayScreen game;
 	private final Player player;
 
-	public PlayerInputProcessor(SpaceGame game, Player player) {
+	public PlayerInputProcessor(GameplayScreen game, Player player) {
 		this.game = game;
 		this.player = player;
 	}
