@@ -11,17 +11,16 @@ class SpaceGame extends Game {
 
 	@Override
     public void create() {
-		gameplayScreen.create();
+		setScreen(gameplayScreen);
     }
 
 	@Override
     public void render() {
-		gameplayScreen.render();
+		super.render();
     }
 
 	@Override
 	public void dispose() {
 		super.dispose();
-		gameplayScreen.dispose();
 	}
 }

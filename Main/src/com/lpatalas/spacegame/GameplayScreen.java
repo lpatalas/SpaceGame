@@ -1,6 +1,7 @@
 package com.lpatalas.spacegame;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -11,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
  * User: Lukasz
  * Date: 14.08.12
  */
-class GameplayScreen extends GameScreen {
+class GameplayScreen implements Screen {
 	private static final float MOVE_SPEED = 1000.0f;
 
 	private final Assets assets = new Assets();
@@ -31,7 +32,7 @@ class GameplayScreen extends GameScreen {
 	}
 
 	@Override
-	public void create() {
+	public void show() {
 		font = new BitmapFont(Gdx.files.internal("fonts/dodger.fnt"), false);
 		spriteBatch = new SpriteBatch();
 
@@ -65,11 +66,9 @@ class GameplayScreen extends GameScreen {
 	}
 
 	@Override
-	public void render() {
+	public void render(float deltaTime) {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
-		float deltaTime = Gdx.graphics.getDeltaTime();
 
 		update(deltaTime);
 
@@ -136,6 +135,23 @@ class GameplayScreen extends GameScreen {
 
 	@Override
 	public void dispose() {
+		hide();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+	}
+
+	@Override
+	public void hide() {
 		assets.dispose();
+	}
+
+	@Override
+	public void pause() {
+	}
+
+	@Override
+	public void resume() {
 	}
 }
