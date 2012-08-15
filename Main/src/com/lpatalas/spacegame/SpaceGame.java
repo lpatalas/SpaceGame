@@ -9,6 +9,6 @@ import com.badlogic.gdx.Game;
 class SpaceGame extends Game {
 	@Override
     public void create() {
-		setScreen(new GameplayScreen());
+		setScreen(new MainMenuScreen());
     }
 }
