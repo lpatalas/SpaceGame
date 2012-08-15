@@ -1,6 +1,7 @@
 package com.lpatalas.spacegame;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 
 /**
  * User: Lukasz
@@ -9,6 +10,6 @@ import com.badlogic.gdx.Game;
 class SpaceGame extends Game {
 	@Override
     public void create() {
-		setScreen(new MainMenuScreen());
+		setScreen(new MainMenuScreen(this));
     }
 }

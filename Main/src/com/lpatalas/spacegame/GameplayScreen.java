@@ -19,6 +19,7 @@ class GameplayScreen implements Screen {
 	private Asteroids asteroids;
 	private Clouds clouds;
 	private BitmapFont font;
+	private final SpaceGame game;
 	private boolean isGameOver = false;
 	private final Particles particles = new Particles();
 	private Player player;
@@ -26,6 +27,10 @@ class GameplayScreen implements Screen {
 	private Stars stars;
 	private long startTime;
 	private long totalGameTime;
+
+	public GameplayScreen(SpaceGame game) {
+		this.game = game;
+	}
 
 	public boolean isRunning() {
 		return !isGameOver;

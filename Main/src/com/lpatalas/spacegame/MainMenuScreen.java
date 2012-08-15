@@ -20,7 +20,12 @@ public class MainMenuScreen implements Screen {
 	private Texture backgroundTexture;
 	private Texture buttonTexture;
 	private BitmapFont font;
+	private final SpaceGame game;
 	private Stage stage;
+
+	public MainMenuScreen(SpaceGame game) {
+		this.game = game;
+	}
 
 	@Override
 	public void render(float delta) {
@@ -39,8 +44,6 @@ public class MainMenuScreen implements Screen {
 		font = new BitmapFont(Gdx.files.internal("fonts/dodger60.fnt"), false);
 		stage = new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
 
-
-
 		Stack stack = new Stack();
 		stack.setFillParent(true);
 		stage.addActor(stack);
@@ -56,13 +59,37 @@ public class MainMenuScreen implements Screen {
 		NinePatch patch = new NinePatch(buttonTexture, 1, 1, 1, 1);
 		patch.setColor(new Color(1, 1, 1, 0.5f));
 		TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(patch, patch, patch, 0, 0, 0, 0, font, color, color, color);
+
 		TextButton startButton = new TextButton("START", buttonStyle);
+		startButton.setClickListener(new ClickListener() {
+			@Override
+			public void click(Actor actor, float x, float y) {
+				startGame();
+			}
+		});
+
 		TextButton exitButton = new TextButton("EXIT", buttonStyle);
+		exitButton.setClickListener(new ClickListener() {
+			@Override
+			public void click(Actor actor, float x, float y) {
+				exitGame();
+			}
+		});
 
 		buttonsTable.defaults().center().width(350).height(100).pad(10);
 		buttonsTable.add(startButton);
 		buttonsTable.row();
 		buttonsTable.add(exitButton);
+
+		Gdx.input.setInputProcessor(stage);
+	}
+
+	private void startGame() {
+		game.setScreen(new GameplayScreen(game));
+	}
+
+	private void exitGame() {
+		Gdx.app.exit();
 	}
 
 	@Override
