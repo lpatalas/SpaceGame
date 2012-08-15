@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
  * Date: 14.08.12
  */
 class GameplayScreen implements Screen {
+	private static final float GAME_OVER_TIMEOUT = 3.0f;
 	private static final float MOVE_SPEED = 1000.0f;
 
 	private final Assets assets = new Assets();
@@ -26,6 +27,7 @@ class GameplayScreen implements Screen {
 	private SpriteBatch spriteBatch;
 	private Stars stars;
 	private long startTime;
+	private float timeLeftToMainMenu;
 	private long totalGameTime;
 
 	public GameplayScreen(SpaceGame game) {
@@ -81,11 +83,18 @@ class GameplayScreen implements Screen {
 		renderObjects(deltaTime);
 		renderTimer(spriteBatch);
 		spriteBatch.end();
+
+		if (isGameOver && timeLeftToMainMenu <= 0) {
+			game.setScreen(new MainMenuScreen(game));
+		}
+
 	}
 
 	private void update(float deltaTime) {
 		if (!isGameOver)
 			updateTimer();
+		else
+			timeLeftToMainMenu -= deltaTime;
 
 		player.update(deltaTime);
 		stars.update(deltaTime, MOVE_SPEED);
@@ -95,6 +104,7 @@ class GameplayScreen implements Screen {
 
 		if (!isGameOver && asteroids.collideWith(player.getBoundingRectangle())) {
 			isGameOver = true;
+			timeLeftToMainMenu = GAME_OVER_TIMEOUT;
 			particles.addExplosion(player.getPosition());
 		}
 	}
