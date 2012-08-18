@@ -7,10 +7,10 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 class Stars {
-	private static final int MAX_STARS = 20;
+	private static final int STAR_COUNT = 20;
 	private static final int STAR_LENGTH = 10;
 
-	private final Vector2[] stars = new Vector2[MAX_STARS];
+	private final Vector2[] starPositions = new Vector2[STAR_COUNT];
 	private final Texture texture;
 
 	public Stars(Texture texture) {
@@ -18,32 +18,33 @@ class Stars {
 	}
 
 	public void initialize() {
-
-		for (int i = 0; i < stars.length; i++) {
-			float x = MathUtils.random(Gdx.graphics.getWidth());
-			float y = MathUtils.random(Gdx.graphics.getHeight());
-
-			stars[i] = new Vector2(x, y);
+		for (int i = 0; i < starPositions.length; i++) {
+			starPositions[i] = new Vector2();
+			randomizeStarPosition(starPositions[i], 0);
 		}
 	}
 
 	public void render(SpriteBatch spriteBatch) {
-		for (Vector2 star : stars) {
-			spriteBatch.draw(texture, star.x, star.y, STAR_LENGTH, 1);
+		for (Vector2 starPosition : starPositions) {
+			spriteBatch.draw(texture, starPosition.x, starPosition.y, STAR_LENGTH, 1);
 		}
 	}
 
 	public void update(float deltaTime, float moveSpeed) {
-		for (Vector2 star : stars) {
-			star.x -= deltaTime * moveSpeed;
-			if (star.x < 0) {
-				resetStar(star);
+		for (Vector2 starPosition : starPositions) {
+			starPosition.x -= deltaTime * moveSpeed;
+			if (isOutOfScreen(starPosition)) {
+				randomizeStarPosition(starPosition, Gdx.graphics.getWidth());
 			}
 		}
 	}
 
-	private void resetStar(Vector2 star) {
-		star.x = MathUtils.random(Gdx.graphics.getWidth(), Gdx.graphics.getWidth() * 2);
-		star.y = MathUtils.random(Gdx.graphics.getHeight());
+	private boolean isOutOfScreen(Vector2 starPosition) {
+		return starPosition.x < 0;
+	}
+
+	private void randomizeStarPosition(Vector2 position, float xOffset) {
+		position.x = MathUtils.random(xOffset, xOffset + Gdx.graphics.getWidth());
+		position.y = MathUtils.random(Gdx.graphics.getHeight());
 	}
 }
