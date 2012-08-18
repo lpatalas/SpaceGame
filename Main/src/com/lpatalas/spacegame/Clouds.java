@@ -22,13 +22,17 @@ class Clouds {
 	}
 
 	public void render(SpriteBatch spriteBatch) {
-		spriteBatch.enableBlending();
-		spriteBatch.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		setupBlending(spriteBatch);
 
 		for (CloudLayer layer : layers) {
 			layer.render(spriteBatch);
 		}
 
 		spriteBatch.setColor(1, 1, 1, 1);
+	}
+
+	private void setupBlending(SpriteBatch spriteBatch) {
+		spriteBatch.enableBlending();
+		spriteBatch.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 	}
 }
