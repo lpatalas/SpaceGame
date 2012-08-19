@@ -21,6 +21,7 @@ class GameplayScreen implements Screen {
 	private Clouds clouds;
 	private BitmapFont font;
 	private final SpaceGame game;
+	private final HighScores highScores = new HighScores();
 	private boolean isGameOver = false;
 	private final Particles particles = new Particles();
 	private Player player;

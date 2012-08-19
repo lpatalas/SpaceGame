@@ -10,6 +10,13 @@ import com.badlogic.gdx.Gdx;
 class SpaceGame extends Game {
 	@Override
     public void create() {
-		setScreen(new MainMenuScreen(this));
+		//setScreen(new MainMenuScreen(this));
+		HighScores scores = new HighScores();
+
+		for (int i = 0; i < 50; i++) {
+			scores.addScore("User " + i, i * 7.13);
+		}
+
+		setScreen(new HighScoresScreen(scores));
     }
 }
